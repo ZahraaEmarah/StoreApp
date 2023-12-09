@@ -31,7 +31,10 @@ namespace Store.App
                 User user = context.User.FirstOrDefault(u => u.Name == Username);
                 if (user != null && user.Password.Equals(hashedPassword))
                 {
-                    MessageBox.Show("Success");
+                    this.Hide();
+
+                    StoreFront f = new StoreFront();
+                    f.Show();
                 }
                 else
                 {

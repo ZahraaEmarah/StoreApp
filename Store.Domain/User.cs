@@ -14,5 +14,6 @@ namespace Store.Domain
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; }
+        public List<Product> ShoppingCart { get; set; }
     }
 }
