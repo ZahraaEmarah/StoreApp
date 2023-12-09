@@ -1,4 +1,4 @@
-using Store.D;
+using Store.Domain;
 using Store.Data;
 
 namespace Store.App
