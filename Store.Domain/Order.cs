@@ -14,7 +14,7 @@ namespace Store.Domain
     public class Order
     {
         public string Id { get; set; }
-        public DateOnly CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string CustomerId { get; set; }
         public Status Status { get; set; }

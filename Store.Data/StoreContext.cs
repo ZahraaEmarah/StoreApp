@@ -20,5 +20,12 @@ namespace Store.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Product> Product { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+              "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = StoreDatabase"
+            );
+        }
     }
 }

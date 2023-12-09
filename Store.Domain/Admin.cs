@@ -11,7 +11,7 @@ namespace Store.Domain
     {
         public string UserId { get; set; }
         public string JobTitle { get; set; }
-        public DateOnly HireDate { get; set; }
+        public DateTime HireDate { get; set; }
         public User User { get; set; }
     }
 }
