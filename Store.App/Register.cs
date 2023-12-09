@@ -19,10 +19,10 @@ namespace Store.App
     public partial class Register : Form
     {
         StoreContext context;
-        Encryptor encryptor;
+        PasswordHasher hasher;
         public Register()
         {
-            encryptor= new Encryptor();
+            hasher = new PasswordHasher();
             context = new StoreContext();
             InitializeComponent();
         }
@@ -46,7 +46,7 @@ namespace Store.App
                     Id = Guid.NewGuid().ToString(),
                     Name = userNameTextBox.Text,
                     Email = emailTextBox.Text,
-                    Password = encryptor.Hash_Password(passwordTextBox.Text),
+                    Password = hasher.HashPassword(passwordTextBox.Text),
                     IsActive = true
                 };
                 context.Add(NewUser);
