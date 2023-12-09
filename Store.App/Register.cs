@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Store.App.helpers;
 using Store.Data;
 using Store.Domain;
 using System;
@@ -18,8 +19,10 @@ namespace Store.App
     public partial class Register : Form
     {
         StoreContext context;
+        Encryptor encryptor;
         public Register()
         {
+            encryptor= new Encryptor();
             context = new StoreContext();
             InitializeComponent();
         }
@@ -34,19 +37,6 @@ namespace Store.App
             return !password.Equals("") && !confirm_password.Equals("") && confirm_password.Equals(password);
         }
 
-        private string Hash_Password(string password)
-        {
-            byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            password: password!,
-            salt: salt,
-            prf: KeyDerivationPrf.HMACSHA256,
-            iterationCount: 100000,
-            numBytesRequested: 256 / 8));
-
-            return hashed;
-        }
-
         private void registerBtn_Click(object sender, EventArgs e)
         {
             if (Validate_Password(passwordTextBox.Text, confirmPasswordTextBox.Text))
@@ -56,7 +46,8 @@ namespace Store.App
                     Id = Guid.NewGuid().ToString(),
                     Name = userNameTextBox.Text,
                     Email = emailTextBox.Text,
-                    Password = Hash_Password(passwordTextBox.Text),
+                    Password = encryptor.Hash_Password(passwordTextBox.Text),
+                    IsActive = true
                 };
                 context.Add(NewUser);
                 context.SaveChanges();
